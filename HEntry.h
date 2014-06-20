@@ -6,16 +6,13 @@ struct SP
 {
 	POINT* m_seed;
 	POINT* m_point;
+
 	~SP() {
-		delete m_seed;
-		delete m_point;
-		m_seed = nullptr;
-		m_point = nullptr;
 	}
 };
 
 struct HEntry
 {
-	uint m_entries;
+	uint m_bin_content;
 	std::vector<SP> m_source;
 };

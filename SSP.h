@@ -9,5 +9,4 @@ struct SSP {
 	Float_t tx;
 	POINT* seed;
 	POINT* point;
-	int ID; //in which bin the Object falls into
 };

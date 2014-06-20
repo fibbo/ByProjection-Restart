@@ -82,7 +82,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cluster.cpp" />
-    <ClCompile Include="Histogram.cpp" />
+    <ClCompile Include="HHistogram.cpp" />
     <ClCompile Include="HT.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Tools.cpp" />
@@ -91,7 +91,7 @@
   <ItemGroup>
     <ClInclude Include="Cluster.h" />
     <ClInclude Include="HEntry.h" />
-    <ClInclude Include="Histogram.h" />
+    <ClInclude Include="HHistogram.h" />
     <ClInclude Include="HT.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="SSP.h" />
