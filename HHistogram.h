@@ -8,16 +8,16 @@ public:
 	HHistogram(uint size, double min, double max);
 	HHistogram(double bin_width, double min, double max);
 	virtual ~HHistogram(void);
-	HEntry operator[](int n) const;
+	int& operator[](int n);
 	void findBin(double value);
 	void print();
 	void AddToBin(int bin);
 	int AddValue(double value);
 	uint size();
 	uint getNumberOfEntries();
-
+	int* m_hist;
 private:
-	HEntry* m_hist;
+
 	double m_bin_width;
 	uint m_size;
 	uint m_overflow;
