@@ -50,21 +50,21 @@ void findClusters(std::vector<Track*> tracks) {
 	for (uint i = 0; i < tracks.size(); i++)
 	{
 
-		Histogram h(BIN_WIDTH,tracks[i]->min_tx-2*BIN_WIDTH, tracks[i]->max_tx+2*BIN_WIDTH);
+		HHistogram h(BIN_WIDTH,tracks[i]->min_tx-2*BIN_WIDTH, tracks[i]->max_tx+2*BIN_WIDTH);
 		fillHisto(tracks[i], h);
 		h.print();
 		for (uint j = 0; j<h.size();)
 		{
-			int k = 0;
+			int k = 0, start_bin, end_bin;
 			double sum = 0, coc = 0; uint entries = 0;
-			if (h[j] > 0)
+			if (h[j].m_bin_content > 0)
 			{
 				k=j+1; 
-				while ((k<h.size()) && (h[k] > 0)) k++;
+				while ((k<h.size()) && (h[k].m_bin_content > 0)) k++;
 				for (uint t=j; t<=k; t++)
 				{
-					sum += h[t]*t;
-					entries += h[t];
+					sum += h[t].m_bin_content*t;
+					entries += h[t].m_bin_content;
 				}
 				coc = sum/entries; j = ++k;
 			}
@@ -73,12 +73,15 @@ void findClusters(std::vector<Track*> tracks) {
 	}
 }
 
-void fillHisto(Track* track, Histogram &h)
+void fillHisto(Track* track, HHistogram &h)
 {
 
 	for (uint j = 0; j < track->ssp.size(); j++)
 	{
+		SP t;
+		t.m_point = track->ssp[j].point;
+		t.m_seed = track->ssp[j].seed;
 		int bin = h.AddValue(track->ssp[j].tx);
-
+		h[bin].m_source.push_back(t);
 	}
 }

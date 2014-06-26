@@ -7,11 +7,11 @@ struct SP
 	POINT* m_seed;
 	POINT* m_point;
 	SP() {
-		m_seed = new POINT();
-		m_point = new POINT();
-	};
+
+	}
 
 	~SP() {
+
 	}
 };
 
