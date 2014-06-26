@@ -2,7 +2,7 @@
 #include <vector>
 #include "Track.h"
 #include <TH1D.h>
-#include "HHistogram.h"
+#include "Histogram.h"
 
 
 void createSeeds(std::vector<Track*> tracks);
@@ -11,4 +11,4 @@ void findSlopes(std::vector<Track*> tracks);
 
 void findClusters(std::vector<Track*> tracks);
 
-void fillHisto(Track* track, HHistogram &h);
+void fillHisto(Track* track, Histogram &h);

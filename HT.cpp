@@ -50,7 +50,7 @@ void findClusters(std::vector<Track*> tracks) {
 	for (uint i = 0; i < tracks.size(); i++)
 	{
 
-		HHistogram h(BIN_WIDTH,tracks[i]->min_tx-2*BIN_WIDTH, tracks[i]->max_tx+2*BIN_WIDTH);
+		Histogram h(BIN_WIDTH,tracks[i]->min_tx-2*BIN_WIDTH, tracks[i]->max_tx+2*BIN_WIDTH);
 		fillHisto(tracks[i], h);
 		h.print();
 		for (uint j = 0; j<h.size();)
@@ -73,7 +73,7 @@ void findClusters(std::vector<Track*> tracks) {
 	}
 }
 
-void fillHisto(Track* track, HHistogram &h)
+void fillHisto(Track* track, Histogram &h)
 {
 
 	for (uint j = 0; j < track->ssp.size(); j++)

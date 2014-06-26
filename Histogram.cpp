@@ -3,8 +3,8 @@
 
 Histogram::Histogram(uint size, double min, double max) 
 {
-	m_hist = new uint[size];
-	for (uint i = 0; i<size; i++) m_hist[i] = 0;
+	m_hist = new int[size];
+	for (uint i = 0; i<size; i++) { m_hist[i] = 0; }
 	m_overflow = 0;
 	m_underflow = 0;
 	m_entries = 0;
@@ -18,8 +18,8 @@ Histogram::Histogram(uint size, double min, double max)
 Histogram::Histogram(double bin_width, double min, double max)
 {
 	m_size = (uint)ceil((max-min)/bin_width);
-	m_hist = new uint[m_size];
-	for (uint i = 0; i<m_size; i++) m_hist[i] = 0;
+	m_hist = new int[m_size];
+	for (uint i = 0; i<m_size; i++) { m_hist[i] = 0; }
 	m_overflow = 0;
 	m_underflow = 0;
 	m_entries = 0;
@@ -31,11 +31,9 @@ Histogram::Histogram(double bin_width, double min, double max)
 
 Histogram::~Histogram(void)
 {
-	delete m_hist;
-	m_hist = NULL;
 }
 
-int Histogram::operator[](int n) const {
+int& Histogram::operator[](int n) {
 	return this->m_hist[n];
 }
 
@@ -56,17 +54,17 @@ void Histogram::print()
 
 void Histogram::AddToBin(int bin)
 {
-	if (bin >= 0 && bin < m_size) m_hist[bin] += 1;
-	else if (bin < 0) m_underflow += 1;
-	else m_overflow += 1;
+	if (bin >= 0 && bin < m_size) { m_hist[bin] += 1; }
+	else if (bin < 0){ m_underflow += 1; }
+	else { m_overflow += 1; }
 	m_entries += 1;
 }
 
 int Histogram::AddValue(double value)
 {
 	int bin = (int)((value-m_min)/m_bin_width);
-	if (bin >= 0 && bin < m_size) m_hist[bin] += 1;
-	else if (bin < 0) m_underflow += 1;
+	if (bin >= 0 && bin < m_size) { m_hist[bin] += 1; }
+	else if (bin < 0) { m_underflow += 1; }
 	else m_overflow += 1;
 	m_entries += 1;
 	return bin;

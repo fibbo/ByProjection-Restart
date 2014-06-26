@@ -30,7 +30,7 @@
     <ClCompile Include="Cluster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HHistogram.cpp">
+    <ClCompile Include="Histogram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,7 +56,7 @@
     <ClInclude Include="HEntry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HHistogram.h">
+    <ClInclude Include="Histogram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
