@@ -17,6 +17,8 @@ variables:
 #include "Tools.h"
 #include "Point.h"
 #include "SSP.h"
+#include "Cluster.h"
+#include "SeedPS.h"
 #define VPLEN_MAX 25
 
 struct Track {
@@ -48,9 +50,11 @@ struct Track {
 	Double_t ty_velo;
 	bool hasVelo;
 	Int_t vplen;
-	std::vector<POINT> velo_points;
-	std::vector<POINT> seeds;
-	std::vector<SSP> ssp;
+	std::vector<POINT> m_velo_points;
+	std::vector<POINT> m_seeds;
+	std::vector<SSP> m_ssp;
+	std::vector<SeedPS> m_seedPS;
+	std::vector<Cluster> m_cluster;
 	Float_t min_tx, max_tx;
 	void sortVeloByZ();
 
