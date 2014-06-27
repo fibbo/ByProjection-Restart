@@ -36,6 +36,9 @@
     <ClCompile Include="HHistogram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SeedPS.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Track.h">

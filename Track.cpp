@@ -12,43 +12,12 @@ bool isGood(const Track &track) {
 }
 
 
-// Deprecated
-//Track& Track::operator=(const Track &other) {
-//	if (this != &other) {
-//		// 1: allocate new memory and copy the elements
-//		Float_t* new_xarray = new Float_t[other.vplen];
-//		Float_t* new_yarray = new Float_t[other.vplen];
-//		Float_t* new_zarray = new Float_t[other.vplen];
-//
-//		//for (uint i = 0; i<other.vplen; i++) {
-//		//	new_xarray[i] = other.velo_x_hit[i];
-//		//	new_yarray[i] = other.velo_y_hit[i];
-//		//	new_zarray[i] = other.velo_z_hit[i];
-//		//}
-//		std::copy(other.velo_x_hit, other.velo_x_hit + other.vplen, new_xarray);
-//		std::copy(other.velo_y_hit, other.velo_y_hit + other.vplen, new_yarray);
-//		std::copy(other.velo_z_hit, other.velo_z_hit + other.vplen, new_zarray);
-//
-//
-//		// 2: deallocate old memory
-//		delete [] velo_x_hit;
-//		delete [] velo_y_hit;
-//		delete [] velo_z_hit;
-//
-//		// 3: assign the new memory to the object
-//		velo_x_hit = new_xarray;
-//		velo_y_hit = new_yarray;
-//		velo_z_hit = new_zarray;
-//		vplen = other.vplen;
-//	}
-//	return *this;
-//}
 
 void copyPointsToVector(Track* t, Float_t velo_x_hit[], Float_t velo_y_hit[], Float_t velo_z_hit[]) {
 
 	for (uint i = 0; i<(uint)t->vplen;i++) {
 		POINT p(velo_x_hit[i],velo_y_hit[i],velo_z_hit[i]);
-		t->velo_points.push_back(p);
+		t->m_velo_points.push_back(p);
 	}
 }
 
@@ -104,7 +73,7 @@ std::vector<Track*> getTracks(TTree* tree) {
 
 
 void Track::sortVeloByZ() {
-	velo_points = QuickSortZ(velo_points);
+	m_velo_points = QuickSortZ(m_velo_points);
 }
 
 std::vector<POINT> QuickSortZ(std::vector<POINT> S) {

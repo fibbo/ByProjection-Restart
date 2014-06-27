@@ -29,8 +29,10 @@ int main(int argc, char* argv[]) {
 
 	createSeeds(tracks);
 	findSlopes(tracks);
+	findSlopes2(tracks);
 	findClusters(tracks);
-
+	POINT* seed = new POINT(1,2,3);
+	seed->print();	
 	
 	std::cout << "DONE" << std::endl;
 	theApp.Run();

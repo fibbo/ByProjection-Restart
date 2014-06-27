@@ -7,13 +7,13 @@ void createSeeds(std::vector<Track*> tracks) {
 
 	for (uint i = 0; i<tracks.size(); i++) {
 		tracks[i]->sortVeloByZ();
-		if (tracks[i]->velo_points.size() > 2) {
+		if (tracks[i]->m_velo_points.size() > 2) {
 			for (uint j = 0; j<NO_OF_SEEDS; j++) {
-				tracks[i]->seeds.push_back(eraseFront(tracks[i]->velo_points));
+				tracks[i]->m_seeds.push_back(eraseFront(tracks[i]->m_velo_points));
 			}
 		}
 		else {
-			tracks[i]->seeds.push_back(eraseFront(tracks[i]->velo_points));
+			tracks[i]->m_seeds.push_back(eraseFront(tracks[i]->m_velo_points));
 		}
 	}
 
@@ -23,11 +23,11 @@ void findSlopes(std::vector<Track*> tracks) {
 	for (uint i = 0; i<tracks.size(); i++) {
 		std::vector<POINT>::iterator it;
 		SSP t;
-		for (it = tracks[i]->seeds.begin(); it != tracks[i]->seeds.end(); it++) {
+		for (it = tracks[i]->m_seeds.begin(); it != tracks[i]->m_seeds.end(); it++) {
 			Float_t x0 = (*it).y;
 			Float_t z0 = (*it).z;
 			std::vector<POINT>::iterator jt;
-			for (jt = tracks[i]->velo_points.begin(); jt!=tracks[i]->velo_points.end(); jt++) {
+			for (jt = tracks[i]->m_velo_points.begin(); jt!=tracks[i]->m_velo_points.end(); jt++) {
 				Float_t tx = atan(((*jt).y - x0)/((*jt).z - z0));
 				t.tx = tx;
 				/* for book keeping */
@@ -35,16 +35,38 @@ void findSlopes(std::vector<Track*> tracks) {
 				if (tx > tracks[i]->max_tx) tracks[i]->max_tx = tx;
 				t.point = &(*jt);
 				t.seed  = &(*it);
-				tracks[i]->ssp.push_back(t);
+				tracks[i]->m_ssp.push_back(t);
 				/* end of book keeping*/
 			}	
 		}
-		tracks[i]->ssp = QuickSortSSP(tracks[i]->ssp);
-
+		tracks[i]->m_ssp = QuickSortSSP(tracks[i]->m_ssp);
 	}
-
-
 }
+
+
+void findSlopes2(std::vector<Track*> tracks)
+{
+	for (uint i = 0; i<tracks.size(); i++)
+	{
+		std::vector<POINT>::iterator it;
+		for (it = tracks[i]->m_seeds.begin(); it!= tracks[i]->m_seeds.end(); it++)
+		{
+			SeedPS ps;
+			ps.seed = &(*it);
+			Float_t x0 = (*it).y;
+			Float_t z0 = (*it).z;
+			std::vector<POINT>::iterator jt;
+			for (jt = tracks[i]->m_velo_points.begin(); jt!=tracks[i]->m_velo_points.end(); jt++)
+			{
+				Float_t tx = atan(((*jt).y - x0)/ ((*jt).z - z0));
+				ps.points.push_back(&(*jt));
+				ps.tx.push_back(tx);
+			}
+			tracks[i]->m_seedPS.push_back(ps);
+		}
+	}
+}
+
 
 void findClusters(std::vector<Track*> tracks) {
 	for (uint i = 0; i < tracks.size(); i++)
@@ -73,15 +95,20 @@ void findClusters(std::vector<Track*> tracks) {
 	}
 }
 
+void findClusters2(std::vector<Track*> tracks) {
+	
+}
+
 void fillHisto(Track* track, HHistogram &h)
 {
 
-	for (uint j = 0; j < track->ssp.size(); j++)
+	for (uint j = 0; j < track->m_ssp.size(); j++)
 	{
 		SP t;
-		t.m_point = track->ssp[j].point;
-		t.m_seed = track->ssp[j].seed;
-		int bin = h.AddValue(track->ssp[j].tx);
+		t.m_point = track->m_ssp[j].point;
+		t.m_seed = track->m_ssp[j].seed;
+		int bin = h.AddValue(track->m_ssp[j].tx);
 		h[bin].m_source.push_back(t);
 	}
 }
+
