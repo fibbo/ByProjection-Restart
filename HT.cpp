@@ -100,16 +100,31 @@ void findClusters2(std::vector<Track*> tracks) {
 	{
 		for (uint j=0; j<tracks[i]->m_seedPS.size(); j++)
 		{
-			HHistogram h(BIN_WIDTH, tracks[i]->min_tx-2*BIN_WIDTH, tracks[i]->max_tx+2*BIN_WIDTH);
+			Histogram h(BIN_WIDTH, tracks[i]->min_tx-2*BIN_WIDTH, tracks[i]->max_tx+2*BIN_WIDTH);
 			fillHisto2(tracks[i]->m_seedPS[j],h);
+			for (uint l=0; l < h.size(); )
+			{
+				Cluster cluster;
+				int k = 0;
+				if (h[l].m_bin_content > 0)
+				{
+					k=j+1;
+					//to be done
+				}
+			}
 		}
 
 
 	}
 }
 
-void fillHisto2(SeedPS seedps, HHistogram &h) {
-
+void fillHisto2(SeedPS seedps, Histogram &h) {
+	for (uint i=0; i<seedps.tx.size(); i++)
+	{
+		h.m_hseed = seedps.seed;
+		int bin = h.AddValue(seedps.tx[i]);
+		h[bin].m_points.push_back(seedps.points[i]);
+	}
 }
 
 void fillHisto(Track* track, HHistogram &h)
@@ -124,4 +139,3 @@ void fillHisto(Track* track, HHistogram &h)
 		h[bin].m_source.push_back(t);
 	}
 }
-

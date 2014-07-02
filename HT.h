@@ -19,4 +19,4 @@ void findClusters2(std::vector<Track*> tracks);
 
 void fillHisto(Track* track, HHistogram &h);
 
-void fillHisto2(SeedPS seedps, HHistogram &h);
+void fillHisto2(SeedPS seedps, Histogram &h);

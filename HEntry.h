@@ -20,3 +20,9 @@ struct HEntry
 	uint m_bin_content;
 	std::vector<SP> m_source;
 };
+
+struct HHEntry
+{
+	uint m_bin_content;
+	std::vector<POINT*> m_points;
+};

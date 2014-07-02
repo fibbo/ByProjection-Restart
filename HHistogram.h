@@ -16,8 +16,9 @@ public:
 	uint size();
 	uint getNumberOfEntries();
 	HEntry* m_hist;
-private:
 
+
+private:
 	double m_bin_width;
 	uint m_size;
 	uint m_overflow;
@@ -26,4 +27,3 @@ private:
 	double m_min;
 	double m_max;
 };
-

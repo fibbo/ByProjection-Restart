@@ -31,6 +31,7 @@ int main(int argc, char* argv[]) {
 	findSlopes(tracks);
 	findSlopes2(tracks);
 	findClusters(tracks);
+	findClusters2(tracks);
 	POINT* seed = new POINT(1,2,3);
 	seed->print();	
 	

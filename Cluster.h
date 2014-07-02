@@ -14,4 +14,3 @@ public:
 	POINT m_seed;
 	void lsq();
 };
-
