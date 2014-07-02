@@ -6,5 +6,4 @@ struct SeedPS {
 	POINT* seed;
 	std::vector<POINT*> points;
 	std::vector<Float_t> tx;
-
 };

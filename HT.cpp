@@ -96,7 +96,20 @@ void findClusters(std::vector<Track*> tracks) {
 }
 
 void findClusters2(std::vector<Track*> tracks) {
-	
+	for (uint i=0; i<tracks.size();i++)
+	{
+		for (uint j=0; j<tracks[i]->m_seedPS.size(); j++)
+		{
+			HHistogram h(BIN_WIDTH, tracks[i]->min_tx-2*BIN_WIDTH, tracks[i]->max_tx+2*BIN_WIDTH);
+			fillHisto2(tracks[i]->m_seedPS[j],h);
+		}
+
+
+	}
+}
+
+void fillHisto2(SeedPS seedps, HHistogram &h) {
+
 }
 
 void fillHisto(Track* track, HHistogram &h)
