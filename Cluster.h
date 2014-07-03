@@ -10,7 +10,7 @@ public:
 	std::vector<POINT*> m_points;
 	double m_tx;
 	double m_lsq;
-	uint m_clustersize;
-	POINT m_seed;
+	POINT* m_seed;
 	void lsq();
+	uint getClusterSize();
 };

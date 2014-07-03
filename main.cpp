@@ -26,12 +26,12 @@ int main(int argc, char* argv[]) {
 
 	TTree* tree = readTree();
 	std::vector<Track*> tracks = getTracks(tree);
-
+	std::vector<Cluster> clusters;
 	createSeeds(tracks);
-	findSlopes(tracks);
+	//findSlopes(tracks);
 	findSlopes2(tracks);
-	findClusters(tracks);
-	findClusters2(tracks);
+	//findClusters(tracks);
+	findClusters2(tracks, clusters);
 	POINT* seed = new POINT(1,2,3);
 	seed->print();	
 	

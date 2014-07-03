@@ -15,7 +15,7 @@ void findSlopes2(std::vector<Track*> tracks);
 
 void findClusters(std::vector<Track*> tracks);
 
-void findClusters2(std::vector<Track*> tracks);
+void findClusters2(std::vector<Track*> tracks, std::vector<Cluster> &clusters);
 
 void fillHisto(Track* track, HHistogram &h);
 

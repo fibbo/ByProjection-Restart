@@ -58,7 +58,10 @@ void findSlopes2(std::vector<Track*> tracks)
 			std::vector<POINT>::iterator jt;
 			for (jt = tracks[i]->m_velo_points.begin(); jt!=tracks[i]->m_velo_points.end(); jt++)
 			{
+				//TODO: fix this so the right min/max_tx values are saved
 				Float_t tx = atan(((*jt).y - x0)/ ((*jt).z - z0));
+				if (tx < ps.min_tx) ps.min_tx = tx;
+				if (tx > ps.max_tx) ps.max_tx = tx;
 				ps.points.push_back(&(*jt));
 				ps.tx.push_back(tx);
 			}
@@ -95,26 +98,58 @@ void findClusters(std::vector<Track*> tracks) {
 	}
 }
 
-void findClusters2(std::vector<Track*> tracks) {
+void findClusters2(std::vector<Track*> tracks, std::vector<Cluster> &clusters) {
 	for (uint i=0; i<tracks.size();i++)
 	{
 		for (uint j=0; j<tracks[i]->m_seedPS.size(); j++)
 		{
-			Histogram h(BIN_WIDTH, tracks[i]->min_tx-2*BIN_WIDTH, tracks[i]->max_tx+2*BIN_WIDTH);
+			Histogram h(BIN_WIDTH, tracks[i]->m_seedPS[j].min_tx-2*BIN_WIDTH, tracks[i]->m_seedPS[j].max_tx+2*BIN_WIDTH);
 			fillHisto2(tracks[i]->m_seedPS[j],h);
 			for (uint l=0; l < h.size(); )
 			{
-				Cluster cluster;
-				int k = 0;
-				if (h[l].m_bin_content > 0)
+				int k = l+1;
+
+				// is there anything in bin l and l not out of bounds
+				if (h[l].m_bin_content > 0 && l < h.size())
 				{
-					k=j+1;
-					//to be done
+					double sum, coc;
+					uint entries;
+					Cluster cluster;
+					cluster.m_seed = tracks[i]->m_seedPS[j].seed;
+
+					//store all the points from bin l in the cluster
+					while (!h[l].m_points.empty())
+					{
+						cluster.m_points.push_back(eraseBack(h[l].m_points));
+					}
+
+					// k = l+1, check if there is some bin_content, if yes, store the points again to the cluster
+					while ((h[k].m_bin_content > 0) && k < h.size() )
+					{
+						while (!h[k].m_points.empty())
+						{
+							cluster.m_points.push_back(eraseBack(h[k].m_points));
+						}
+						++k;
+
+					}
+					if (cluster.getClusterSize() > 4)
+					{
+						sum=0; entries=0; coc=0;
+						for (uint t=l; t<k; t++)
+						{
+							sum += h[t].m_bin_content*t;
+							entries += h[t].m_bin_content;
+						}
+						coc = sum/entries; l = ++k; 
+						cluster.m_tx = tracks[i]->min_tx + BIN_WIDTH*coc;
+						clusters.push_back(cluster);
+					}
+
 				}
+				l++;
 			}
 		}
-
-
 	}
 }
 
