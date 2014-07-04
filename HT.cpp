@@ -49,17 +49,16 @@ void findSlopes2(std::vector<Track*> tracks)
 	for (uint i = 0; i<tracks.size(); i++)
 	{
 		std::vector<POINT>::iterator it;
+		SeedPS ps;
 		for (it = tracks[i]->m_seeds.begin(); it!= tracks[i]->m_seeds.end(); it++)
-		{
-			SeedPS ps;
+		{	
 			ps.seed = &(*it);
 			Float_t x0 = (*it).y;
 			Float_t z0 = (*it).z;
 			std::vector<POINT>::iterator jt;
 			for (jt = tracks[i]->m_velo_points.begin(); jt!=tracks[i]->m_velo_points.end(); jt++)
 			{
-				//TODO: fix this so the right min/max_tx values are saved
-				Float_t tx = atan(((*jt).y - x0)/ ((*jt).z - z0));
+				Float_t tx = atan(((*jt).y - x0)/((*jt).z - z0));
 				if (tx < ps.min_tx) ps.min_tx = tx;
 				if (tx > ps.max_tx) ps.max_tx = tx;
 				ps.points.push_back(&(*jt));
@@ -105,6 +104,7 @@ void findClusters2(std::vector<Track*> tracks, std::vector<Cluster> &clusters) {
 		{
 			Histogram h(BIN_WIDTH, tracks[i]->m_seedPS[j].min_tx-2*BIN_WIDTH, tracks[i]->m_seedPS[j].max_tx+2*BIN_WIDTH);
 			fillHisto2(tracks[i]->m_seedPS[j],h);
+			h.print();
 			for (uint l=0; l < h.size(); )
 			{
 				int k = l+1;
@@ -142,7 +142,7 @@ void findClusters2(std::vector<Track*> tracks, std::vector<Cluster> &clusters) {
 							entries += h[t].m_bin_content;
 						}
 						coc = sum/entries; l = ++k; 
-						cluster.m_tx = tracks[i]->min_tx + BIN_WIDTH*coc;
+						cluster.m_tx = tracks[i]->m_seedPS[j].min_tx + BIN_WIDTH*coc;
 						clusters.push_back(cluster);
 					}
 

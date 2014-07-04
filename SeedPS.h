@@ -8,7 +8,7 @@ struct SeedPS {
 	std::vector<Float_t> tx;
 	Float_t min_tx, max_tx;
 	SeedPS() {
-		min_tx = 999;
-		max_tx = -999;
+		min_tx = 999.;
+		max_tx = -999.;
 	}
 };

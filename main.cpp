@@ -6,7 +6,7 @@
 #include <TCanvas.h>
 #include "Histogram.h"
 #include "HHistogram.h"
-#include "HEntry.h"\
+#include "HEntry.h"
 
 void test(HHistogram &h) {
 	POINT* seed = new POINT(1,2,3);
@@ -34,6 +34,10 @@ int main(int argc, char* argv[]) {
 	findClusters2(tracks, clusters);
 	POINT* seed = new POINT(1,2,3);
 	seed->print();	
+	for (uint i = 0; i<clusters.size(); i++)
+	{
+		clusters[i].Draw();
+	}
 	
 	std::cout << "DONE" << std::endl;
 	theApp.Run();

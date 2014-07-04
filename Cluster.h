@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Point.h"
+#include "TGraph.h"
+#include "TF1.h"
+#include "TCanvas.h"
 
 class Cluster
 {
@@ -13,4 +16,5 @@ public:
 	POINT* m_seed;
 	void lsq();
 	uint getClusterSize();
+	void Draw();
 };
