@@ -56,6 +56,10 @@ struct Track {
 	std::vector<SeedPS> m_seedPS;
 	std::vector<Cluster> m_cluster;
 	Float_t min_tx, max_tx;
+	Float_t Max_tx() const { return max_tx; }
+	void Max_tx(Float_t val) { max_tx = val; }
+	Float_t Min_tx() const { return min_tx; }
+	void Min_tx(Float_t val) { min_tx = val; }
 	void sortVeloByZ();
 
 };
