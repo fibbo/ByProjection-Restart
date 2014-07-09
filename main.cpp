@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 	findClusters2(tracks, clusters);
 	POINT* seed = new POINT(1,2,3);
 	seed->print();	
-	for (uint i = 0; i<clusters.size(); i++)
+	for (uint i = 0; i<1; i++)
 	{
 		clusters[i].Draw();
 	}

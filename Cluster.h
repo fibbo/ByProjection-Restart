@@ -4,6 +4,8 @@
 #include "TGraph.h"
 #include "TF1.h"
 #include "TCanvas.h"
+#include "fstream"
+#include "sstream"
 
 class Cluster
 {
@@ -17,4 +19,5 @@ public:
 	void lsq();
 	uint getClusterSize();
 	void Draw();
+	void PrintToFile(int n);
 };
