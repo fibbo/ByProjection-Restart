@@ -65,10 +65,11 @@ void Cluster::Draw()
 	g2->SetMarkerStyle(21);
 	g2->Draw("ACP");
 	g1->Draw("AC*");
-	/*TF1* f1 = new TF1("f1","x*[0]+[1]",400,700);
+	Float_t b = m_seed->z*m_tx - m_seed->y;
+	TF1* f1 = new TF1("f1","x*[0]+[1]",0,700);
 	f1->SetParameter(0,m_tx);
-	f1->SetParameter(1,m_seed->y);
-	f1->Draw("same");*/
+	f1->SetParameter(1,b);
+	f1->Draw("same");
 	
 	
 	
@@ -77,5 +78,16 @@ void Cluster::Draw()
 
 void Cluster::PrintToFile(int n)
 {
+	
+	std::ostringstream fname;
+	fname << "data/cluster_" << n << ".txt";
+	std::ofstream file(fname.str().c_str());
+	file << m_seed->z << "\t" << m_seed->y << std::endl;
+	for (uint i = 0; i<m_points.size(); i++)
+	{
+		file << m_points[i]->z << "\t" << m_points[i]->y << std::endl;
+	}
 
+	file << m_tx << "\t" << 999 << std::endl;
+	file.close();
 }

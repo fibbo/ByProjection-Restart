@@ -61,6 +61,7 @@ struct Track {
 	Float_t Min_tx() const { return min_tx; }
 	void Min_tx(Float_t val) { min_tx = val; }
 	void sortVeloByZ();
+	void PrintToFile(int n);
 
 };
 

@@ -27,15 +27,16 @@ int main(int argc, char* argv[]) {
 	TTree* tree = readTree();
 	std::vector<Track*> tracks = getTracks(tree);
 	std::vector<Cluster> clusters;
+	
 	createSeeds(tracks);
-	//findSlopes(tracks);
+	
 	findSlopes2(tracks);
-	//findClusters(tracks);
+	
 	findClusters2(tracks, clusters);
-	POINT* seed = new POINT(1,2,3);
-	seed->print();	
-	for (uint i = 0; i<1; i++)
+	
+	for (uint i = 0; i<clusters.size(); i++)
 	{
+		clusters[i].PrintToFile(i);
 		clusters[i].Draw();
 	}
 	

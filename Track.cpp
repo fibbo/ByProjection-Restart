@@ -65,7 +65,7 @@ std::vector<Track*> getTracks(TTree* tree) {
 			copyPointsToVector(tt,velo_x_hit, velo_y_hit,velo_z_hit);
 			tracks.push_back(tt);
 		}
-		
+
 	}
 	return tracks;
 }
@@ -76,37 +76,75 @@ void Track::sortVeloByZ() {
 	m_velo_points = QuickSortZ(m_velo_points);
 }
 
-std::vector<POINT> QuickSortZ(std::vector<POINT> S) {
+void Track::PrintToFile(int n)
+{
+	std::ofstream file;
+	std::ostringstream fname;
+	fname << "data/track_" << n << ".txt";
+	file.open(fname.str().c_str());
+	for (uint i = 0; i<m_velo_points.size(); i++)
+	{
+		file << m_velo_points[i].z << "\t" << m_velo_points[i].y << std::endl;
+	}
+
+	file.close();
+}
+
+std::vector<POINT> QuickSortZ(std::vector<POINT> S) 
+{
 	if (S.size() <= 1) return S;
 	Float_t p = S.back().z;
 	std::vector<POINT> L(0), E(0), G(0);
-	while (!S.empty()) {
+	while (!S.empty()) 
+	{
 		if (S.back().z < p) L.push_back(eraseBack(S));
 		else if (S.back().z == p) E.push_back(eraseBack(S));
 		else G.push_back(eraseBack(S));
 	}
 	L = QuickSortZ(L);
 	G = QuickSortZ(G);
-	while (!L.empty()) S.push_back(eraseFront(L));
-	while (!E.empty()) S.push_back(eraseFront(E));
-	while (!G.empty()) S.push_back(eraseFront(G));
+	while (!L.empty())
+	{
+		S.push_back(eraseFront(L));
+	}
+	while (!E.empty()) 
+	{
+		S.push_back(eraseFront(E));
+	}
+	while (!G.empty()) 
+	{
+		S.push_back(eraseFront(G));
+	}
 	return S;
 }
 
-std::vector<SSP> QuickSortSSP(std::vector<SSP> S) {
+std::vector<SSP> QuickSortSSP(std::vector<SSP> S) 
+{
 	if (S.size() <= 1) return S;
 	Float_t p = S.back().tx;
 	std::vector<SSP> L(0), E(0), G(0);
-	while (!S.empty()) {
+	while (!S.empty()) 
+	{
 		if (S.back().tx < p) L.push_back(eraseBack(S));
 		else if (S.back().tx == p) E.push_back(eraseBack(S));
 		else G.push_back(eraseBack(S));
 	}
 	L = QuickSortSSP(L);
 	G = QuickSortSSP(G);
-	while (!L.empty()) S.push_back(eraseFront(L));
-	while (!E.empty()) S.push_back(eraseFront(E));
-	while (!G.empty()) S.push_back(eraseFront(G));
+	while (!L.empty())
+	{
+		S.push_back(eraseFront(L));
+	}
+	while (!E.empty())
+	{
+		S.push_back(eraseFront(E));
+	}
+
+	while (!G.empty())
+	{ 
+		S.push_back(eraseFront(G));
+	}
+
 	return S;
 }
 
