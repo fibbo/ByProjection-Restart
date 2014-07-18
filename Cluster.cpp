@@ -65,7 +65,7 @@ void Cluster::Draw()
 	g2->SetMarkerStyle(21);
 	g2->Draw("ACP");
 	g1->Draw("AC*");
-	Float_t b = m_seed->z*m_tx - m_seed->y;
+	Float_t b = -m_seed->z*m_tx + m_seed->y;
 	TF1* f1 = new TF1("f1","x*[0]+[1]",0,700);
 	f1->SetParameter(0,m_tx);
 	f1->SetParameter(1,b);
@@ -78,7 +78,6 @@ void Cluster::Draw()
 
 void Cluster::PrintToFile(int n)
 {
-	
 	std::ostringstream fname;
 	fname << "data/cluster_" << n << ".txt";
 	std::ofstream file(fname.str().c_str());

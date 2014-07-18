@@ -58,7 +58,7 @@ std::vector<Track*> getTracks(TTree* tree) {
 	for (unsigned long i=0; i<tree->GetEntries(); i++) {
 		tree->GetEntry(i);
 
-		if (isGood(t))
+		if (1)
 		{
 			Track* tt = new Track();
 			*tt = t;

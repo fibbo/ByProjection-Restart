@@ -28,9 +28,9 @@ void findSlopes(std::vector<Track*> tracks) {
 			Float_t z0 = (*it).z;
 			std::vector<POINT>::iterator jt;
 			for (jt = tracks[i]->m_velo_points.begin(); jt!=tracks[i]->m_velo_points.end(); jt++) {
-				Float_t tx = atan(((*jt).y - x0)/((*jt).z - z0));
+				Float_t tx = (((*jt).y - x0)/((*jt).z - z0));
 				t.tx = tx;
-				/* for book keeping */
+				/* for book keeping to know which points and seed belong to which tx */
 				if (tx < tracks[i]->min_tx) tracks[i]->min_tx = tx;
 				if (tx > tracks[i]->max_tx) tracks[i]->max_tx = tx;
 				t.point = &(*jt);

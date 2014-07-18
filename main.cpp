@@ -37,7 +37,6 @@ int main(int argc, char* argv[]) {
 	for (uint i = 0; i<clusters.size(); i++)
 	{
 		clusters[i].PrintToFile(i);
-		clusters[i].Draw();
 	}
 	
 	std::cout << "DONE" << std::endl;
