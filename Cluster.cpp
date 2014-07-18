@@ -19,7 +19,7 @@ void Cluster::lsq()
 	double r2 = 0;
 	for (uint i = 0; i<m_points.size(); i++)
 	{
-		r2 += m_points[i]->x - m_tx*m_points[i]->z + m_seed->x;
+		r2 += m_points[i]->m_x - m_tx*m_points[i]->m_z + m_seed->m_x;
 	}
 }
 
@@ -35,15 +35,15 @@ void Cluster::Draw()
 	Float_t seedx[1];
 	Float_t seedy[1];
 	Float_t xmin,ymin,xmax,ymax;
-	seedx[0] = m_seed->z;
+	seedx[0] = m_seed->m_z;
 	xmin = seedx[0];
 	xmax = seedx[0];
-	seedy[0] = m_seed->y;
+	seedy[0] = m_seed->m_y;
 	ymin = seedy[0];
 	ymax = seedy[0];
 	for (uint i = 0; i<m_points.size(); i++)
 	{
-		x[i]=m_points[i]->z;
+		x[i]=m_points[i]->m_z;
 		if (x[i] < xmin)
 		{
 			xmin = x[i];
@@ -52,7 +52,7 @@ void Cluster::Draw()
 		{
 			xmax = x[i];
 		}
-		y[i]=m_points[i]->y;
+		y[i]=m_points[i]->m_y;
 
 	}
 
@@ -65,7 +65,7 @@ void Cluster::Draw()
 	g2->SetMarkerStyle(21);
 	g2->Draw("ACP");
 	g1->Draw("AC*");
-	Float_t b = -m_seed->z*m_tx + m_seed->y;
+	Float_t b = -m_seed->m_z*m_tx + m_seed->m_y;
 	TF1* f1 = new TF1("f1","x*[0]+[1]",0,700);
 	f1->SetParameter(0,m_tx);
 	f1->SetParameter(1,b);
@@ -81,10 +81,10 @@ void Cluster::PrintToFile(int n)
 	std::ostringstream fname;
 	fname << "data/cluster_" << n << ".txt";
 	std::ofstream file(fname.str().c_str());
-	file << m_seed->z << "\t" << m_seed->y << std::endl;
+	file << m_seed->m_z << "\t" << m_seed->m_y << std::endl;
 	for (uint i = 0; i<m_points.size(); i++)
 	{
-		file << m_points[i]->z << "\t" << m_points[i]->y << std::endl;
+		file << m_points[i]->m_z << "\t" << m_points[i]->m_y << std::endl;
 	}
 
 	file << m_tx << "\t" << 999 << std::endl;

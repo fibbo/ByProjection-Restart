@@ -13,8 +13,8 @@ public:
 	Cluster(void);
 	~Cluster(void);
 	std::vector<POINT*> m_points;
-	double m_tx;
-	double m_lsq;
+	Float_t m_tx;
+	Float_t m_lsq;
 	POINT* m_seed;
 	void lsq();
 	uint getClusterSize();

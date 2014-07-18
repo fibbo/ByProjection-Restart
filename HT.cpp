@@ -24,11 +24,11 @@ void findSlopes(std::vector<Track*> tracks) {
 		std::vector<POINT>::iterator it;
 		SSP t;
 		for (it = tracks[i]->m_seeds.begin(); it != tracks[i]->m_seeds.end(); it++) {
-			Float_t x0 = (*it).y;
-			Float_t z0 = (*it).z;
+			Float_t x0 = (*it).m_y;
+			Float_t z0 = (*it).m_z;
 			std::vector<POINT>::iterator jt;
 			for (jt = tracks[i]->m_velo_points.begin(); jt!=tracks[i]->m_velo_points.end(); jt++) {
-				Float_t tx = (((*jt).y - x0)/((*jt).z - z0));
+				Float_t tx = (((*jt).m_y - x0)/((*jt).m_z - z0));
 				t.tx = tx;
 				/* for book keeping to know which points and seed belong to which tx */
 				if (tx < tracks[i]->min_tx) tracks[i]->min_tx = tx;
@@ -53,12 +53,12 @@ void findSlopes2(std::vector<Track*> tracks)
 		for (it = tracks[i]->m_seeds.begin(); it!= tracks[i]->m_seeds.end(); it++)
 		{	
 			ps.seed = &(*it);
-			Float_t x0 = (*it).y;
-			Float_t z0 = (*it).z;
+			Float_t x0 = (*it).m_y;
+			Float_t z0 = (*it).m_z;
 			std::vector<POINT>::iterator jt;
 			for (jt = tracks[i]->m_velo_points.begin(); jt!=tracks[i]->m_velo_points.end(); jt++)
 			{
-				Float_t tx = atan(((*jt).y - x0)/((*jt).z - z0));
+				Float_t tx = atan(((*jt).m_y - x0)/((*jt).m_z - z0));
 				if (tx < ps.min_tx) ps.min_tx = tx;
 				if (tx > ps.max_tx) ps.max_tx = tx;
 				ps.points.push_back(&(*jt));

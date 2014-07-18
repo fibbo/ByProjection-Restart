@@ -58,7 +58,7 @@ std::vector<Track*> getTracks(TTree* tree) {
 	for (unsigned long i=0; i<tree->GetEntries(); i++) {
 		tree->GetEntry(i);
 
-		if (1)
+		if (isGood(t))
 		{
 			Track* tt = new Track();
 			*tt = t;
@@ -84,7 +84,7 @@ void Track::PrintToFile(int n)
 	file.open(fname.str().c_str());
 	for (uint i = 0; i<m_velo_points.size(); i++)
 	{
-		file << m_velo_points[i].z << "\t" << m_velo_points[i].y << std::endl;
+		file << m_velo_points[i].m_z << "\t" << m_velo_points[i].m_y << std::endl;
 	}
 
 	file.close();
@@ -93,12 +93,12 @@ void Track::PrintToFile(int n)
 std::vector<POINT> QuickSortZ(std::vector<POINT> S) 
 {
 	if (S.size() <= 1) return S;
-	Float_t p = S.back().z;
+	Float_t p = S.back().m_z;
 	std::vector<POINT> L(0), E(0), G(0);
 	while (!S.empty()) 
 	{
-		if (S.back().z < p) L.push_back(eraseBack(S));
-		else if (S.back().z == p) E.push_back(eraseBack(S));
+		if (S.back().m_z < p) L.push_back(eraseBack(S));
+		else if (S.back().m_z == p) E.push_back(eraseBack(S));
 		else G.push_back(eraseBack(S));
 	}
 	L = QuickSortZ(L);
