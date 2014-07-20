@@ -104,7 +104,7 @@ void findClusters2(std::vector<Track*> tracks, std::vector<Cluster> &clusters) {
 		{
 			Histogram h(BIN_WIDTH, tracks[i]->m_seedPS[j].min_tx-2*BIN_WIDTH, tracks[i]->m_seedPS[j].max_tx+2*BIN_WIDTH);
 			fillHisto2(tracks[i]->m_seedPS[j],h);
-			h.print();
+			//h.print();
 			for (uint l=0; l < h.size(); )
 			{
 				int k = l+1;

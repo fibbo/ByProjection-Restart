@@ -44,7 +44,7 @@ std::vector<Track*> getTracks(TTree* tree) {
 	tree->SetBranchAddress("y_max_hit",&t.y_max_hit);
 	tree->SetBranchAddress("z_hit",&t.z_hit);
 	tree->SetBranchAddress("planeCode",&t.planeCode);
-	tree->SetBranchAddress("x_UT",&t.x_UT);
+	/*tree->SetBranchAddress("x_UT",&t.x_UT);*/ //buggy in UTHits_100.root
 	tree->SetBranchAddress("x_velo",&t.x_velo);
 	tree->SetBranchAddress("y_velo",&t.y_velo);
 	tree->SetBranchAddress("z_velo",&t.z_velo);
@@ -58,7 +58,7 @@ std::vector<Track*> getTracks(TTree* tree) {
 	for (unsigned long i=0; i<tree->GetEntries(); i++) {
 		tree->GetEntry(i);
 
-		if (isGood(t))
+		if (1)
 		{
 			Track* tt = new Track();
 			*tt = t;

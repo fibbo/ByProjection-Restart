@@ -23,6 +23,13 @@ variables:
 
 struct Track {
 	Track() {min_tx = 999.; max_tx = -999.;	}
+	Float_t Max_tx() const { return max_tx; }
+	void Max_tx(Float_t val) { max_tx = val; }
+	Float_t Min_tx() const { return min_tx; }
+	void Min_tx(Float_t val) { min_tx = val; }
+	void sortVeloByZ();
+	void PrintToFile(int n);
+
 	//Track& operator=(const Track &other);
 
 	bool reconstructible_asLong;
@@ -42,7 +49,7 @@ struct Track {
 	Float_t y_max_hit;
 	Float_t z_hit;
 	Float_t planeCode;
-	Float_t x_UT;
+	//Float_t x_UT;
 	Double_t x_velo;
 	Double_t y_velo;
 	Double_t z_velo;
@@ -56,12 +63,7 @@ struct Track {
 	std::vector<SeedPS> m_seedPS;
 	std::vector<Cluster> m_cluster;
 	Float_t min_tx, max_tx;
-	Float_t Max_tx() const { return max_tx; }
-	void Max_tx(Float_t val) { max_tx = val; }
-	Float_t Min_tx() const { return min_tx; }
-	void Min_tx(Float_t val) { min_tx = val; }
-	void sortVeloByZ();
-	void PrintToFile(int n);
+
 
 };
 
